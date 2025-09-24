@@ -41,7 +41,7 @@ Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
 Thanks to all the people who already contributed!
 
 <a href="https://github.com/bettergovph/kapwa/graphs/contributors">
-    <img src="https://contributors-img.web.app/image?repo=kapwa/bettergov&max=750&columns=20" />
+    <img src="https://contributors-img.web.app/image?repo=bettergovph/kapwa&max=750&columns=20" />
 </a>
 
 ## License
