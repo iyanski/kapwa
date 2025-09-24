@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Storybook
+storybook_static
+public/storybook
+
 # Playwright
 /test-results/
 /playwright-report/
@@ -38,6 +42,3 @@ functions/.wrangler
 src/data/flood_control/lookups/contractors
 contractor_fetch_log.csv
 wrangler.toml
-
-# Dev
-.cursor/*

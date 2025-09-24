@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { HomeIcon, AlertTriangleIcon } from 'lucide-react';
-import Button from '../components/ui/Button';
+import Button from '@ui/button/Button';
 
 import { Helmet } from 'react-helmet-async';
 

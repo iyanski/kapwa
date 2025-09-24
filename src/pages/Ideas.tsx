@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Lightbulb, Users, Star, TrendingUp, Plus } from 'lucide-react';
 import { SiGithub } from '@icons-pack/react-simple-icons';
-import { Card, CardContent } from '../components/ui/Card';
+import { Card, CardContent } from '@ui/card/Card';
 
 interface ProjectIdea {
   id: string;

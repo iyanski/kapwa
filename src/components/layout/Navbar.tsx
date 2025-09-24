@@ -44,6 +44,14 @@ const Navbar: React.FC = () => {
               🚀 Join Us
             </Link>
             <a
+              href='/storybook/index.html'
+              className='text-xs text-gray-800 hover:text-primary-600 transition-colors'
+              target='_blank'
+              rel='noreferrer'
+            >
+              📕 Storybook
+            </a>
+            <a
               href='https://www.gov.ph'
               className='text-xs text-gray-800 hover:text-primary-600 transition-colors'
               target='_blank'
