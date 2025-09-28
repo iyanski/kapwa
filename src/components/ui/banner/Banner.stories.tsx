@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Banner from './Banner';
 
 const meta: Meta<typeof Banner> = {
-  title: 'UI/Banner',
+  title: 'Components/Banner',
   component: Banner,
   parameters: {
     layout: 'padded',
