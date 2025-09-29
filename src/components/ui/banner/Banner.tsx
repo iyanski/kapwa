@@ -5,42 +5,43 @@ import Button from '@ui/button/Button';
 export type BannerType = 'info' | 'warning' | 'error' | 'success' | 'default';
 
 export interface BannerProps {
-  title: string;
+  title?: string;
   description: string;
   type?: BannerType;
   icon?: boolean;
-  cta?: {
-    label: string;
-    onClick: () => void;
-    href?: string;
-    variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-    size?: 'sm' | 'md' | 'lg';
-  };
+  cta?:
+    | {
+        label: string;
+        onClick: () => void;
+        href?: string;
+        variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+        size?: 'sm' | 'md' | 'lg';
+      }
+    | Array<{
+        label: string;
+        onClick: () => void;
+        href?: string;
+        variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+        size?: 'sm' | 'md' | 'lg';
+      }>;
   className?: string;
   onDismiss?: () => void;
   titleSize?: 'sm' | 'md' | 'lg';
-  variant?: 'standard' | 'simple'; // New prop for layout variant
-  additionalText?: string; // For additional paragraphs like "Last updated"
 }
 
 const Banner: React.FC<BannerProps> = ({
   title,
   description,
   type = 'default',
-  icon = true,
+  icon = false,
   cta,
   className,
   onDismiss,
   titleSize = 'lg',
-  variant = 'standard',
-  additionalText,
 }) => {
   const typeStyles = {
     success: {
-      container:
-        variant === 'simple'
-          ? 'bg-green-50'
-          : 'bg-green-50 border border-green-200',
+      container: 'bg-green-50 border border-green-200',
       icon: 'text-green-600',
       title: 'text-green-800',
       description: 'text-green-700',
@@ -61,8 +62,7 @@ const Banner: React.FC<BannerProps> = ({
       ),
     },
     error: {
-      container:
-        variant === 'simple' ? 'bg-red-50' : 'bg-red-50 border border-red-200',
+      container: 'bg-red-50 border border-red-200',
       icon: 'text-red-600',
       title: 'text-red-800',
       description: 'text-red-700',
@@ -83,10 +83,7 @@ const Banner: React.FC<BannerProps> = ({
       ),
     },
     warning: {
-      container:
-        variant === 'simple'
-          ? 'bg-yellow-50'
-          : 'bg-yellow-50 border border-yellow-200',
+      container: 'bg-yellow-50 border border-yellow-200',
       icon: 'text-yellow-600',
       title: 'text-yellow-800',
       description: 'text-yellow-700',
@@ -107,10 +104,7 @@ const Banner: React.FC<BannerProps> = ({
       ),
     },
     info: {
-      container:
-        variant === 'simple'
-          ? 'bg-blue-50'
-          : 'bg-blue-50 border border-blue-200',
+      container: 'bg-blue-50 border border-blue-200',
       icon: 'text-blue-600',
       title: 'text-blue-800',
       description: 'text-blue-700',
@@ -131,7 +125,7 @@ const Banner: React.FC<BannerProps> = ({
       ),
     },
     default: {
-      container: variant === 'simple' ? 'bg-gray-50' : 'bg-gray-50',
+      container: 'bg-gray-50 border border-gray-200',
       icon: 'text-gray-600',
       title: 'text-gray-900',
       description: 'text-gray-800',
@@ -154,17 +148,9 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const titleSizes = {
-    sm: variant === 'simple' ? 'text-sm' : 'text-base',
-    md: variant === 'simple' ? 'text-base' : 'text-lg',
-    lg: variant === 'simple' ? 'text-lg' : 'text-xl',
-  };
-
-  const getDescriptionSize = () => {
-    return variant === 'simple' ? 'text-xs' : 'text-sm';
-  };
-
-  const getPadding = () => {
-    return variant === 'simple' ? 'p-3' : 'p-4';
+    sm: 'text-base',
+    md: 'text-lg',
+    lg: 'text-xl',
   };
 
   const getButtonStyling = (
@@ -199,126 +185,100 @@ const Banner: React.FC<BannerProps> = ({
 
   const currentStyles = typeStyles[type];
 
-  // Simple variant (text-only, no icon, compact layout)
-  if (variant === 'simple') {
-    return (
-      <div
-        className={cn(
-          'relative rounded-lg',
-          getPadding(),
-          currentStyles.container,
-          className
-        )}
-      >
-        <h5
-          className={cn(
-            'font-medium mb-2',
-            currentStyles.title,
-            titleSizes[titleSize]
-          )}
+  // Helper function to render a single CTA button
+  const renderCTAButton = (
+    ctaItem: {
+      label: string;
+      onClick: () => void;
+      href?: string;
+      variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+      size?: 'sm' | 'md' | 'lg';
+    },
+    index: number
+  ) => {
+    if (ctaItem.href) {
+      return (
+        <a
+          key={index}
+          href={ctaItem.href}
+          className={getButtonStyling(ctaItem.variant, ctaItem.size)}
         >
-          {title}
-        </h5>
-        <p className={cn(currentStyles.description, getDescriptionSize())}>
-          {description}
-        </p>
-        {additionalText && (
-          <p
-            className={cn(
-              currentStyles.description,
-              getDescriptionSize(),
-              'mt-2'
-            )}
-          >
-            {additionalText}
-          </p>
-        )}
+          {ctaItem.label}
+        </a>
+      );
+    }
 
-        {onDismiss && (
-          <button
-            onClick={onDismiss}
-            className='absolute top-2 right-2 rounded-md p-1.5 transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2'
-            aria-label='Dismiss banner'
-          >
-            <svg
-              className='w-4 h-4 opacity-60'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-            >
-              <path
-                fillRule='evenodd'
-                d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                clipRule='evenodd'
-              />
-            </svg>
-          </button>
-        )}
-      </div>
+    return (
+      <Button
+        key={index}
+        onClick={ctaItem.onClick}
+        variant={ctaItem.variant || 'primary'}
+        size={ctaItem.size || 'md'}
+      >
+        {ctaItem.label}
+      </Button>
     );
-  }
+  };
 
   // CTA button (for banner with button layout)
   if (cta) {
+    const ctaArray = Array.isArray(cta) ? cta : [cta];
+
     return (
       <div
         className={cn(
-          'relative rounded-lg p-6',
+          'relative rounded-lg p-4',
           currentStyles.container,
           className
         )}
       >
         <div className='md:flex items-center'>
-          <div className='mb-6 md:mb-0 md:w-2/3 md:pr-8'>
-            <h3
-              className={cn(
-                'font-semibold mb-2',
-                currentStyles.title,
-                titleSizes[titleSize]
-              )}
-            >
-              {title}
-            </h3>
+          <div
+            className={cn(
+              'mb-6 md:mb-0 md:w-2/3 md:pr-8',
+              onDismiss ? 'pr-10 md:pr-8' : ''
+            )}
+          >
+            {title && (
+              <h3
+                className={cn(
+                  'font-semibold mb-2',
+                  currentStyles.title,
+                  titleSizes[titleSize]
+                )}
+              >
+                {title}
+              </h3>
+            )}
             <p className={currentStyles.description}>{description}</p>
           </div>
           <div className='md:w-1/3 flex justify-center md:justify-end'>
-            {cta.href ? (
-              <a
-                href={cta.href}
-                className={getButtonStyling(cta.variant, cta.size)}
-              >
-                {cta.label}
-              </a>
-            ) : (
-              <Button
-                onClick={cta.onClick}
-                variant={cta.variant || 'primary'}
-                size={cta.size || 'md'}
-              >
-                {cta.label}
-              </Button>
-            )}
+            <div className='flex space-x-2 items-center'>
+              {ctaArray.map((ctaItem, index) =>
+                renderCTAButton(ctaItem, index)
+              )}
+              {onDismiss && (
+                <button
+                  onClick={onDismiss}
+                  className='absolute top-2 right-2 md:relative md:top-auto md:right-auto rounded-md p-2 transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2'
+                  aria-label='Dismiss banner'
+                >
+                  <svg
+                    className='w-4 h-4 opacity-60'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                </button>
+              )}
+            </div>
           </div>
         </div>
-
-        {onDismiss && (
-          <button
-            onClick={onDismiss}
-            className='absolute top-2 right-2 rounded-md p-1.5 transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2'
-            aria-label='Dismiss banner'
-          >
-            <svg
-              className='w-4 h-4 opacity-60'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-            >
-              <path
-                fillRule='evenodd'
-                d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                clipRule='evenodd'
-              />
-            </svg>
-          </button>
-        )}
       </div>
     );
   }
@@ -327,37 +287,15 @@ const Banner: React.FC<BannerProps> = ({
   return (
     <div
       className={cn(
-        'relative flex items-start rounded-lg',
-        getPadding(),
+        'relative flex justify-between rounded-lg p-4',
         currentStyles.container,
         className
       )}
     >
-      {icon && (
-        <div className={cn('mr-3 mt-0.5', currentStyles.icon)}>
-          {currentStyles.iconSvg}
-        </div>
-      )}
-
-      <div className='flex-1'>
-        <h3
-          className={cn(
-            'font-semibold',
-            currentStyles.title,
-            titleSizes[titleSize]
-          )}
-        >
-          {title}
-        </h3>
-        <p className={cn(currentStyles.description, getDescriptionSize())}>
-          {description}
-        </p>
-      </div>
-
       {onDismiss && (
         <button
           onClick={onDismiss}
-          className='absolute top-2 right-2 flex-shrink-0 ml-3 rounded-md p-1.5 transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2'
+          className='absolute top-2 right-2 md:relative md:top-auto md:right-auto md:flex md:items-center md:justify-end md:ml-3 flex-shrink-0 rounded-md p-2 transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2'
           aria-label='Dismiss banner'
         >
           <svg
@@ -373,6 +311,36 @@ const Banner: React.FC<BannerProps> = ({
           </svg>
         </button>
       )}
+      <div
+        className={cn(
+          'flex items-center',
+          title ? 'items-start' : 'items-center',
+          onDismiss ? 'pr-10 md:pr-0' : ''
+        )}
+      >
+        {icon && (
+          <div className={cn('mr-3', title ? 'mt-1' : '', currentStyles.icon)}>
+            {currentStyles.iconSvg}
+          </div>
+        )}
+
+        <div className='flex-1'>
+          {title && (
+            <h3
+              className={cn(
+                'font-semibold',
+                currentStyles.title,
+                titleSizes[titleSize]
+              )}
+            >
+              {title}
+            </h3>
+          )}
+          <p className={cn(currentStyles.description, 'text-sm')}>
+            {description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

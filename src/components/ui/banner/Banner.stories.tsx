@@ -25,10 +25,6 @@ const meta: Meta<typeof Banner> = {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
-    variant: {
-      control: { type: 'select' },
-      options: ['standard', 'simple'],
-    },
   },
 };
 
@@ -36,6 +32,17 @@ export default meta;
 type Story = StoryObj<typeof Banner>;
 
 // === CORE PRACTICAL PATTERNS ===
+
+// 4. Call-to-Action Banner (Government services)
+export const Default: Story = {
+  args: {
+    type: 'default',
+    title: 'Government Directory',
+    description:
+      'Access contact information for Philippine government offices and agencies.',
+    titleSize: 'lg',
+  },
+};
 
 // 1. Visa Status Banners (Most common use case)
 export const Success: Story = {
@@ -71,19 +78,6 @@ export const Warning: Story = {
   },
 };
 
-// 2. Simple Disclaimer Banner (Common for legal/info text)
-export const Simple: Story = {
-  args: {
-    type: 'warning',
-    title: 'Disclaimer',
-    description:
-      'This information is sourced from official government websites and may be subject to change without prior notice.',
-    variant: 'simple',
-    titleSize: 'md',
-    additionalText: 'Last updated: September 28, 2025',
-  },
-};
-
 // 3. Text-Only Information (Clean layouts)
 export const Info: Story = {
   args: {
@@ -97,7 +91,7 @@ export const Info: Story = {
 };
 
 // 4. Call-to-Action Banner (Government services)
-export const WithButton: Story = {
+export const WithCTA: Story = {
   args: {
     type: 'default',
     title: 'Government Directory',
@@ -114,11 +108,37 @@ export const WithButton: Story = {
   },
 };
 
+// 7. Multiple CTAs with Links
+export const WithMultipleCTA: Story = {
+  args: {
+    type: 'default',
+    title: 'Join the Community',
+    description: 'Connect with others and share your experiences.',
+    cta: [
+      {
+        label: 'Join Now',
+        onClick: () => alert('Joining now!'),
+        variant: 'primary',
+        size: 'md',
+      },
+      {
+        label: 'Discord',
+        onClick: () => alert('Downloading forms!'),
+        variant: 'link',
+        size: 'md',
+      },
+    ],
+    titleSize: 'lg',
+    icon: true,
+  },
+};
+
 // 5. Dismissible Notification (User interactions)
 export const Dismissible: Story = {
   args: {
     type: 'info',
     title: 'New Features Available',
+
     description:
       'Check out the latest updates to your government services dashboard.',
 
@@ -131,103 +151,6 @@ export const Dismissible: Story = {
 
     onDismiss: () => alert('Banner dismissed!'),
     titleSize: 'lg',
-    variant: 'standard',
+    icon: true,
   },
-};
-
-// === SHOWCASE ALL TYPES ===
-export const AllTypes: Story = {
-  name: 'All Semantic Types',
-  render: () => (
-    <div className='space-y-4'>
-      <Banner
-        type='success'
-        title='Success (Green)'
-        description='Visa-free entry, successful operations, positive confirmations.'
-        icon={true}
-        titleSize='lg'
-      />
-      <Banner
-        type='error'
-        title='Error (Red)'
-        description='Visa required, errors, failed operations.'
-        icon={true}
-        titleSize='lg'
-      />
-      <Banner
-        type='warning'
-        title='Warning (Yellow)'
-        description='Special conditions, disclaimers, important notices.'
-        icon={true}
-        titleSize='lg'
-      />
-      <Banner
-        type='info'
-        title='Info (Blue)'
-        description='Informational messages, tips, neutral updates.'
-        icon={true}
-        titleSize='lg'
-      />
-      <Banner
-        type='default'
-        title='Default (Gray)'
-        description='General content, call-to-action sections.'
-        cta={{
-          label: 'Take Action',
-          onClick: () => alert('Action taken!'),
-          variant: 'primary',
-          size: 'md',
-        }}
-        titleSize='lg'
-      />
-    </div>
-  ),
-};
-
-// === LAYOUT VARIANTS ===
-export const LayoutVariants: Story = {
-  name: 'Layout Comparison',
-  render: () => (
-    <div className='space-y-3'>
-      <div>
-        <h3 className='text-lg font-semibold mb-3'>
-          Standard Variant (with borders)
-        </h3>
-        <div className='space-y-3'>
-          <Banner
-            type='info'
-            title='Standard with Icon'
-            description='This is the standard layout with icon and borders.'
-            icon={true}
-            titleSize='lg'
-          />
-          <Banner
-            type='default'
-            title='Default with Button'
-            description='Default layout with call-to-action button.'
-            cta={{
-              label: 'Learn More',
-              onClick: () => alert('Learning more!'),
-              variant: 'primary',
-              size: 'md',
-            }}
-            titleSize='lg'
-          />
-        </div>
-      </div>
-
-      <div>
-        <div className='space-y-3'>
-          <Banner
-            type='warning'
-            title='Simple Compact'
-            description='Compact layout for disclaimers and footnotes.'
-            variant='simple'
-            titleSize='md'
-            additionalText='Perfect for legal text and updates.'
-          />
-        </div>
-      </div>
-    </div>
-  ),
 };
