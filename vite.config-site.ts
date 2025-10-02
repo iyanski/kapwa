@@ -20,5 +20,8 @@ export default defineConfig({
       '@kapwa': path.resolve(__dirname, './src/kapwa'),
     },
   },
+  optimizeDeps: {
+    exclude: ['storybook'],
+  },
   plugins: [react(), tailwindcss()],
 });
