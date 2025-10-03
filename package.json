@@ -116,43 +116,43 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
     },
     "./utils": {
       "import": "./dist/utils.js",
-      "require": "./dist/utils.cjs",
-      "types": "./dist/utils.d.ts"
+      "types": "./dist/utils.d.ts",
+      "require": "./dist/utils.cjs"
     },
     "./banner": {
       "import": "./dist/banner/index.tsx.js",
-      "require": "./dist/banner/index.tsx.cjs",
-      "types": "./dist/banner/index.d.ts"
+      "types": "./dist/banner/index.d.ts",
+      "require": "./dist/banner/index.tsx.cjs"
     },
     "./button": {
       "import": "./dist/button/index.tsx.js",
-      "require": "./dist/button/index.tsx.cjs",
-      "types": "./dist/button/index.d.ts"
+      "types": "./dist/button/index.d.ts",
+      "require": "./dist/button/index.tsx.cjs"
     },
     "./button/hooks": {
       "import": "./dist/button/hooks/index.ts.js",
-      "require": "./dist/button/hooks/index.ts.cjs",
-      "types": "./dist/button/hooks/index.d.ts"
+      "types": "./dist/button/hooks/index.d.ts",
+      "require": "./dist/button/hooks/index.ts.cjs"
     },
     "./card": {
       "import": "./dist/card/index.tsx.js",
-      "require": "./dist/card/index.tsx.cjs",
-      "types": "./dist/card/index.d.ts"
+      "types": "./dist/card/index.d.ts",
+      "require": "./dist/card/index.tsx.cjs"
     },
     "./input": {
       "import": "./dist/input/index.tsx.js",
-      "require": "./dist/input/index.tsx.cjs",
-      "types": "./dist/input/index.d.ts"
+      "types": "./dist/input/index.d.ts",
+      "require": "./dist/input/index.tsx.cjs"
     },
     "./label": {
       "import": "./dist/label/index.tsx.js",
-      "require": "./dist/label/index.tsx.cjs",
-      "types": "./dist/label/index.d.ts"
+      "types": "./dist/label/index.d.ts",
+      "require": "./dist/label/index.tsx.cjs"
     }
   },
   "typesVersions": {

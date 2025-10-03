@@ -4,7 +4,11 @@ const config: StorybookConfig = {
   stories: ['../src/kapwa/**/*.stories.tsx'],
   framework: {
     name: '@storybook/react-vite',
-    options: {},
+    options: {
+      builder: {
+        viteConfigPath: 'vite.config-site.ts',
+      },
+    },
   },
   addons: [
     '@storybook/addon-links',
