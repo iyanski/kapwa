@@ -19,7 +19,6 @@
     "wrangler": "wrangler",
     "preview": "vite preview --config vite.config-site.ts",
     "prepare": "husky",
-    "commit": "cz",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
@@ -91,9 +90,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "commander": "^13.1.0",
-    "commitizen": "^4.3.1",
     "concurrently": "^9.2.1",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
@@ -188,11 +185,6 @@
       "label": [
         "./dist/label/index.d.ts"
       ]
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
